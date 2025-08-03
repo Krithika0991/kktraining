@@ -12,11 +12,11 @@ public class Customer {
       groupone.showTools();
 	 
       //override class	
-      TeamHead teamheadone = new GroupTwo("cts",200,"ram");
-      teamheadone.showProjects();
+      teamhead = new GroupTwo("cts",200,"ram");
+      teamhead.showProjects();
       
       //own method
-      GroupTwo grouptwo = (GroupTwo)teamhead;
+      GroupTwo grouptwo = new GroupTwo("cts",200,"ram");
       String[] crs =new String[] {"test","opp"};
       grouptwo.courseAssigned(crs);
       
