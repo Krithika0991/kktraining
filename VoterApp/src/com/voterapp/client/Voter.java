@@ -2,6 +2,7 @@ package com.voterapp.client;
 
 import java.util.Scanner;
 
+import com.voterapp.exception.InvalidVoterIdException;
 import com.voterapp.exception.LocalityNotFoundException;
 import com.voterapp.exception.UnderAgeException;
 import com.voterapp.service.ElectionBoothServiceImpl;
@@ -26,12 +27,22 @@ public class Voter {
 	            if (electionbooth.checkAge(age)) {
 	                System.out.println("Valid age: " + age);
 	            }
+	            
+	            System.out.print("Enter VoterID: ");
+	            int voterid = sc.nextInt();
+
+	            if (electionbooth.checkVoterId(voterid)) {
+	                System.out.println("Valid voterid: " + voterid);
+	            }
 
 	        } catch (LocalityNotFoundException e) {
 	            System.out.println("Locality error: " + e.getMessage());
 	        } catch (UnderAgeException e) {
 	            System.out.println("Age error: " + e.getMessage());
-	        } finally {
+	        }
+	     catch (InvalidVoterIdException e) {
+            System.out.println("Age error: " + e.getMessage());
+        }finally {
 	            sc.close();
 	        }
 	    }

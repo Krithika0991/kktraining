@@ -49,7 +49,10 @@ public class ElectionBoothServiceImpl implements IElectionBoothService {
 	@Override
 	public boolean checkVoterId(int id) throws InvalidVoterIdException {
 		// TODO Auto-generated method stub
-		return false;
+		if(id<1000 || id >9999) {
+		    throw new InvalidVoterIdException("VoterId must be greater than 1000 and greater than 9999");
+		}
+		return true;
 	}
 		
 }
