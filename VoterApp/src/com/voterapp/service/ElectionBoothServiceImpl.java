@@ -1,15 +1,29 @@
 package com.voterapp.service;
 
+import com.voterapp.exception.InvalidVoterIdException;
 import com.voterapp.exception.LocalityNotFoundException;
+import com.voterapp.exception.NotEligibleException;
+import com.voterapp.exception.UnderAgeException;
 
 public class ElectionBoothServiceImpl implements IElectionBoothService {
 
 	@Override
-	public boolean checkEligible(int age, String locality, int id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
+  public boolean checkEligible(int age, String locality, int id) throws NotEligibleException  {
+	        if( !checkAge(age)  ){
+	            throw new UnderAgeException("Age must be 18 or above to be eligible.");
+	        }
+
+	        if (!checkLocality(locality)) {
+	            throw new LocalityNotFoundException("Invalid locality: " + locality);
+	        }
+
+	        if (id <= 0) {
+	            throw new InvalidVoterIdException("Voter ID must be a positive number.");
+	        }
+
+	        return true;
+	    }
+	@Override
 	public boolean checkLocality(String locality) throws LocalityNotFoundException {
 		 // Suppose only these localities are allowed
         String[] validLocalities = {"JP Nagar", "ABC Nagar", "Anna Nagar"};
@@ -23,6 +37,19 @@ public class ElectionBoothServiceImpl implements IElectionBoothService {
         }
 		return false;
     }
+	
+	@Override
+	public boolean checkAge(int age ) throws UnderAgeException {
+		 if (age <= 0 || age < 18) {
+			    throw new UnderAgeException("Age must be greater than 0 and at least 18 to be eligible.");
+			}else {
+	        	return true;
+			}
+    }
+	@Override
+	public boolean checkVoterId(int id) throws InvalidVoterIdException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 		
-
 }
